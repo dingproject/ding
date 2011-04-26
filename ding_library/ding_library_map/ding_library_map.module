@@ -75,8 +75,7 @@ function _ding_library_map_data() {
     if ($center = variable_get('ding_library_map_center', false)) {
       if (isset($center['lat']) && isset($center['lon'])
           && $center['lat'] && $center['lon']) {
-        $map['latitude'] = $center['lat'];
-        $map['longitude'] = $center['lon'];
+        $map['center']['initial']['centerpoint'] = $center['lon'] . ', ' . $center['lat'];
       }
     }
   }
