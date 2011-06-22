@@ -116,7 +116,7 @@ function theme_ding_library_user_loan_list_form($form) {
 
       $rows[] = array(
         'data' => $cells,
-        'class' => (($checkbox) ? 'selectable' : 'immutable'),
+        'class' => (($form['loans'][$loan_id]['#disabled']) ? 'immutable' : 'selectable'),
       );
     }
 
