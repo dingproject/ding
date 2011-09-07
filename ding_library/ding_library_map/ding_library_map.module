@@ -116,7 +116,7 @@ function _ding_library_map_data() {
 
   $oh_data = office_hours_bulk_load(implode(',', array_keys($libraries)), 'field_opening_hours');
 
-  $map = array('id' => 'library-map', 'type' => 'map', 'zoom' => 12, 'minzoom' => 9, 'maxzoom' => 14, 'height' => '200px', 'width' => '100%', 'controltype' => 'Small', 'behavior' => array('extramarkerevents' => 1, 'nomousezoom' => 1));
+  $map = array('id' => 'library-map', 'type' => 'map', 'minzoom' => 9, 'maxzoom' => 14, 'height' => '200px', 'width' => '100%', 'controltype' => 'Small', 'behavior' => array('extramarkerevents' => 1, 'nomousezoom' => 1));
   if ($center = variable_get('ding_library_map_center', false)) {
     if (isset($map['latitude']) && isset($map['longitude'])
         && $map['latitude'] && $map['longitude']) {
