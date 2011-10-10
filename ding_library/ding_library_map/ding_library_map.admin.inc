@@ -30,6 +30,12 @@ function ding_library_map_admin_settings_form(&$form_state) {
     '#default_value' => $lon_lat['lon'],
   );
 
+  $form['ding_library_map_zoom'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Zoom'),
+    '#default_value' => variable_get('ding_library_map_zoom', 11),
+  );
+
   return system_settings_form($form);
 }
 

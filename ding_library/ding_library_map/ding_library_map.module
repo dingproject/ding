@@ -78,6 +78,9 @@ function _ding_library_map_data() {
         $map['center']['initial']['centerpoint'] = $center['lon'] . ', ' . $center['lat'];
       }
     }
+    if ($zoom = variable_get('ding_library_map_zoom', FALSE)) {
+      $map['center']['initial']['zoom'] = $zoom;
+    }
   }
 
   return $map;
