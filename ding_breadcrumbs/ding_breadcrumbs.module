@@ -3,7 +3,7 @@
 
 /**
  * @file ding_breadcrumbs.module
- * Handles the generation and loading of nodes from "slugs", 
+ * Handles the generation and loading of nodes from "slugs",
  * small bits of text, suitable for use in URLs.
  */
 
@@ -45,11 +45,14 @@ function ding_breadcrumbs_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
         $library = node_load($node->field_library_ref[0]['nid']);
         $trail[] = l($library->title, 'node/' . $library->nid);
 
+        // Slugs are generated separately from library nodes and consequently
+        // may not be set. Default to nid.
+        $library_id = ($library->slug) ? $library->slug : $library->nid;
         if ($node->type == 'article') {
-          $trail[] = l(t('Blog'), 'biblioteker/' . $library->slug . '/blog');
+          $trail[] = l(t('Blog'), 'biblioteker/' . $library_id . '/blog');
         }
         elseif ($node->type == 'event') {
-          $trail[] = l(t('Events'), 'biblioteker/' . $library->slug . '/arrangementer');
+          $trail[] = l(t('Events'), 'biblioteker/' . $library_id . '/arrangementer');
         }
       }
     }
