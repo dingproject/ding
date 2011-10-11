@@ -77,8 +77,8 @@ function ding_reservation_ding_cart_list_form_reserve($form, &$form_state) {
   foreach (array_filter($form_state['values']['selected']) as $local_id) {
     $reservation = ding_provider_invoke('reservation', 'create', $form_state['values']['account'], $local_id, $form_state['values']['options'] ? $form_state['values']['options'] : array());
 
-    // Parameter for the title to the t() function. Defined as a 
-    // variable to avoid having to define it in all the different 
+    // Parameter for the title to the t() function. Defined as a
+    // variable to avoid having to define it in all the different
     // invocations below.
     $t_param = array('@title' => $form['cart']['#value'][$local_id]['title']);
 
@@ -107,7 +107,7 @@ function ding_reservation_ding_cart_list_form_reserve($form, &$form_state) {
       }
     }
 
-    // If none of the cases above apply (and thus return the function, 
+    // If none of the cases above apply (and thus return the function,
     // skipping this part, provide a generic error message.
     drupal_set_message(t('Reservation of “@title” failed. Please try again later, and contact technical support if the problem persists.', $t_param), 'error');
   }

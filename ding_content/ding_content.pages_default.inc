@@ -57,7 +57,7 @@ function ding_content_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -225,7 +225,7 @@ function ding_content_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-7'] = $pane;
     $display->panels['top'][0] = 'new-7';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
 
@@ -282,7 +282,7 @@ function ding_content_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -447,7 +447,7 @@ function ding_content_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-7'] = $pane;
     $display->panels['top'][0] = 'new-7';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
 
@@ -513,7 +513,7 @@ function ding_content_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -746,7 +746,7 @@ function ding_content_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-10'] = $pane;
     $display->panels['top'][0] = 'new-10';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
 
@@ -796,7 +796,7 @@ function ding_content_default_page_manager_handlers() {
   $display->layout_settings = array();
   $display->panel_settings = array();
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -849,7 +849,7 @@ function ding_content_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-2'] = $pane;
     $display->panels['right'][0] = 'new-2';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
 
@@ -915,7 +915,7 @@ function ding_content_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -1063,7 +1063,7 @@ function ding_content_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-6'] = $pane;
     $display->panels['top'][0] = 'new-6';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
 
@@ -1121,7 +1121,7 @@ function ding_content_default_page_manager_handlers() {
   $display->layout_settings = array();
   $display->panel_settings = array();
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -1262,7 +1262,7 @@ function ding_content_default_page_manager_handlers() {
   $display->layout_settings = array();
   $display->panel_settings = array();
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%term:name';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -1395,7 +1395,7 @@ function ding_content_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-6'] = $pane;
     $display->panels['top'][0] = 'new-6';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
 
@@ -1550,7 +1550,7 @@ function ding_content_default_page_manager_pages() {
   $display->layout_settings = array();
   $display->panel_settings = array();
   $display->cache = array();
-  $display->title = '';
+  $display->title = 'Forside';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -1635,7 +1635,7 @@ function ding_content_default_page_manager_pages() {
     $pane->position = 0;
     $display->content['new-4'] = $pane;
     $display->panels['top'][0] = 'new-4';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
@@ -1755,7 +1755,7 @@ function ding_content_default_page_manager_pages() {
     $pane->position = 0;
     $display->content['new-3'] = $pane;
     $display->panels['top'][0] = 'new-3';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
@@ -1814,7 +1814,7 @@ function ding_content_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = 'Lokale emnesamlinger';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -2167,7 +2167,7 @@ function ding_content_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = 'Anbefalinger';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;

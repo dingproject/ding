@@ -64,33 +64,33 @@ function theme_ding_reservation_list_form($form) {
       else {
         $cells['checkbox'] = array(
           'class' => 'checkbox empty',
-          'data' => '–',
+          'data' => '<label for="edit-selected-'.$item['id'].'">'.'–'.'</label>',
         );
       }
 
       $cells['image'] = array(
         'class' => 'image',
-        'data' => theme('ding_library_user_list_item_image', 'reservation', $item, '80_x'),
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.theme('ding_library_user_list_item_image', 'reservation', $item, '80_x').'</label>',
       );
 
       $cells['title'] = array(
         'class' => 'title',
-        'data' => theme('ding_library_user_list_item', 'reservation', $item) . ' (<span class="reservation-number">' . t('Res. no @num', array('@num' => $item['id'])) . '</span>)',
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.theme('ding_library_user_list_item', 'reservation', $item) . ' (<span class="reservation-number">' . t('Res. no @num', array('@num' => $item['id'])) . '</span>)'.'</label>',
       );
 
       $cells['pickup_number'] = array(
         'class' => 'pickup_number',
-        'data' => $item['pickup_number'],
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.$item['pickup_number'].'</label>',
       );
 
       $cells['pickup_expire_date'] = array(
         'class' => 'pickup_expire_date',
-        'data' => ding_library_user_format_date($item['pickup_expire_date'], $date_format),
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.ding_library_user_format_date($item['pickup_expire_date'], $date_format).'</label>',
       );
 
       $cells['pickup_branch'] = array(
         'class' => 'pickup_branch',
-        'data' => $item['pickup_branch'] ? $item['pickup_branch'] : t('Unknown'),
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.$item['pickup_branch'] ? $item['pickup_branch'] : t('Unknown').'</label>',
       );
 
       $rows[] = $cells;
@@ -166,39 +166,39 @@ function theme_ding_reservation_list_form($form) {
 
       $cells['image'] = array(
         'class' => 'image',
-        'data' => theme('ding_library_user_list_item_image', 'loan', $item, '80_x'),
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.theme('ding_library_user_list_item_image', 'loan', $item, '80_x').'</label>',
       );
 
       $cells['title'] = array(
         'class' => 'title',
-        'data' => theme('ding_library_user_list_item', 'reservation', $item) . ' (<span class="reservation-number">' . t('Res. no @num', array('@num' => $item['id'])) . '</span>)',
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.theme('ding_library_user_list_item', 'reservation', $item) . ' (<span class="reservation-number">' . t('Res. no @num', array('@num' => $item['id'])) . '</span>)'.'</label>',
       );
 
       $cells['create_date'] = array(
         'class' => 'create_date',
-        'data' => ding_library_user_format_date($item['create_date'], $date_format),
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.ding_library_user_format_date($item['create_date'], $date_format).'</label>',
       );
 
       $cells['valid_to'] = array(
         'class' => 'valid_to',
-        'data' => ding_library_user_format_date($item['valid_to'], $date_format),
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.ding_library_user_format_date($item['valid_to'], $date_format).'</label>',
       );
 
       $cells['pickup_branch'] = array(
         'class' => 'pickup_branch',
-        'data' => $item['pickup_branch'] ? $item['pickup_branch'] : t('Unknown'),
+        'data' => '<label for="edit-selected-'.$item['id'].'">'.($item['pickup_branch'] ? $item['pickup_branch'] : t('Unknown')).'</label>',
       );
-      
+
       $cells['queue_number'] = array(
         'class' => 'queue_no',
-        'data' => (!isset($item['remote_reservation']) || !$item['remote_reservation']) ? $item['queue_number'] : '<abbr title="'.t('Queue number is not supported for remote reservations').'">-</abbr>',
+        'data' => (!isset($item['remote_reservation']) || !$item['remote_reservation']) ? '<label for="edit-selected-'.$item['id'].'">'.$item['queue_number'].'</label>' : '<abbr title="'.t('Queue number is not supported for remote reservations').'">-</abbr>',
       );
 
       $classes = 'active-reservations';
       if (isset($item['remote_reservation']) && $item['remote_reservation']) {
         $classes .= ' remote-reservations';
       }
-      
+
       $rows[] = array(
         'data' => $cells,
         'class' => $classes,

@@ -82,7 +82,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = 'Om %slug:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -218,7 +218,7 @@ function ding_library_default_page_manager_pages() {
     $pane->position = 0;
     $display->content['new-6'] = $pane;
     $display->panels['top'][0] = 'new-6';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
@@ -302,7 +302,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%slug:title Blog-indlæg';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -418,7 +418,7 @@ function ding_library_default_page_manager_pages() {
     $pane->position = 0;
     $display->content['new-5'] = $pane;
     $display->panels['top'][0] = 'new-5';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
@@ -503,7 +503,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%slug:title Arrangementer';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -639,7 +639,7 @@ function ding_library_default_page_manager_pages() {
     $pane->position = 0;
     $display->content['new-6'] = $pane;
     $display->panels['top'][0] = 'new-6';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
@@ -723,7 +723,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%slug:title Faciliteter';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -839,7 +839,7 @@ function ding_library_default_page_manager_pages() {
     $pane->position = 0;
     $display->content['new-5'] = $pane;
     $display->panels['top'][0] = 'new-5';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;

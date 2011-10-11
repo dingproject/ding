@@ -87,7 +87,7 @@ function ding_library_user_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = 'Min status';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -298,7 +298,7 @@ function ding_library_user_default_page_manager_pages() {
   $display->layout_settings = array();
   $display->panel_settings = array();
   $display->cache = array();
-  $display->title = '';
+  $display->title = 'Gæld';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -381,7 +381,7 @@ function ding_library_user_default_page_manager_pages() {
     $pane->position = 2;
     $display->content['new-4'] = $pane;
     $display->panels['right'][2] = 'new-4';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
