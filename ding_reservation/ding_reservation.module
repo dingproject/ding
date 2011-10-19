@@ -88,22 +88,23 @@ function ding_reservation_ding_cart_list_form_reserve($form, &$form_state) {
           drupal_set_message(t('Reservation of “@title” successful.', $t_param));
           // If reservation was successful, remove the item from the cart.
           ding_cart_remove_item($form_state['values']['account'], $local_id);
-          return;
+          break;
         case DING_PROVIDER_AUTH_BLOCKED:
           drupal_set_message(t('Reservation of “@title” failed: Your account is blocked.', $t_param), 'error');
-          return;
+          break;
         case DING_RESERVATION_ERROR_NOT_ALLOWED:
           drupal_set_message(t('Reservation of “@title” failed: Reservation not allowed.', $t_param), 'error');
-          return;
+          break;
         case DING_RESERVATION_ERROR_NOT_AVAILABLE:
           drupal_set_message(t('Reservation of “@title” failed: Not available for reservation.', $t_param), 'error');
           // If reservation is impossible, remove the item from the cart.
           ding_cart_remove_item($form_state['values']['account'], $local_id);
+          break;
         case DING_RESERVATION_ERROR_RESERVATION_EXISTS:
           drupal_set_message(t('“@title” is already on your reservation list, and has been removed from your cart.', $t_param), 'warning');
           // If reservation is already made, remove the item from the cart.
           ding_cart_remove_item($form_state['values']['account'], $local_id);
-          return;
+          break;
       }
     }
 
