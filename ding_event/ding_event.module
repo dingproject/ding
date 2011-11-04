@@ -65,9 +65,13 @@ function ding_event_theme() {
 function ding_event_views_pre_render(&$view) {
   // When the event list is being displayed on a library page...
   if ($view->name == 'event_list' && $view->current_display == 'panel_pane_2') {
-    // Get the link to the library's event page.
-    $slug = ding_library_get_slug($view->args[0]);
-    $url = url('biblioteker/' . $slug . '/arrangementer');
+    // Generate the link to the library's event page
+    $id = ding_library_get_slug($view->args[0]);
+    if (!$id) {
+      // No slug? Fall back to nid
+      $id = $view->args[0];
+    }
+    $url = url('biblioteker/' . $id . '/arrangementer');
 
     // Replace the URL in the more link to point at the library's event
     // page instead of the global one.
