@@ -48,7 +48,7 @@ else{
           <?php print l('<span>'.t("Loans") . '</span> <strong>' . $user_status['loan_count'] . '</strong>', 'user/'. $user->uid . '/status', array('html' => TRUE)); ?>
         </div>
         <?php if($loan_status != "default"){ ?>
-          <div class="status"><span class="<?php print $loan_status ?>">!</span></div>
+          <div class="status"><span class="<?php print $loan_status ?>" alt="<?php format_plural($user_status['loan_overdue_count'], '1 loan overdue', '@count loans overdue'); ?>">!</span></div>
         <?php } ?>
       </li>
       <li>
