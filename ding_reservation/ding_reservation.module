@@ -310,12 +310,17 @@ function ding_reservation_list_form_remove($form, &$form_state) {
 function ding_reservation_ting_object_is($object, $class) {
   if ($class == 'reservable' || $class == 'cartable') {
     if (ting_object_is($object, 'online')) {
+      // Online objects are never reservable. Ding should provide users
+      // with direct access to these if possible.
       return FALSE;
+    } else {
+      $vars = ting_object_preprocess($object);
+      // Objects which belong to the library holdings are reservable.
+      // We cannot answer for anything else.
+      if (in_array(strtolower($vars['ting_source']), array('bibliotekets materialer'))) {
+        return TRUE;
+      }
     }
-    elseif (in_array(drupal_strtolower($object->type), array('artikel', 'tidsskrift'))) {
-      return FALSE;
-    }
-    return TRUE;
   }
 }
 
