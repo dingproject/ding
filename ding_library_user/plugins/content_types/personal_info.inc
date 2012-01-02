@@ -28,7 +28,10 @@ function ding_library_user_personal_info_content_type_render($subtype, $conf, $p
 
   if ($creds != DING_PROVIDER_AUTH_REQUIRED) {
     $block->title = t('Personal information');
-    $library_user_data = alma_client_invoke('get_patron_info', $creds['user_id'], $creds['password'], TRUE);
+    $library_user_data = array();
+    if (ding_provider_supports('user', 'personal_info')) {
+      $library_user_data = ding_provider_invoke('user', 'personal_info', $account);
+    }
 
     if (!isset($library_user_data['blocks']) || empty($library_user_data['blocks'])) {
       $block->content = theme('ding_library_user_personal_info', $account, $library_user_data);
@@ -51,7 +54,7 @@ function ding_library_user_personal_info_content_type_admin_title($subtype, $con
 /**
  * Returns an edit form for the content type.
  *
- * We're not actually doing anything here, but we need to have this hook 
+ * We're not actually doing anything here, but we need to have this hook
  * for this content type to work.
  */
 function ding_library_user_personal_info_content_type_edit_form(&$form, &$form_state) {
