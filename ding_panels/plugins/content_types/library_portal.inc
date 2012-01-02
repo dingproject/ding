@@ -83,8 +83,20 @@ function _ding_panels_library_portal_navigation_render($library = NULL, $default
   }
 
   if (empty($tree) && !empty($default_menu)) {
-    // Load the default menu.
-    $tree = menu_tree($default_menu);
+    if(variable_get('ding_page_skip_first_menu_level', FALSE)){
+      // a tweaked implementation of func menu_tree, which skips the first level in menu.
+      $items = array();
+      $items = menu_tree_page_data($default_menu);
+      foreach($items as $item){
+        if($item['link']['in_active_trail']){
+          $tree = menu_tree_output($item['below']); 
+        }
+      }
+    }
+    else{
+      // Load the default menu. (default behaviour)
+      $tree = menu_tree($default_menu);
+    }
   }
 
   if (!empty($tree)) {

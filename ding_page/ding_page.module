@@ -16,6 +16,18 @@ function ding_page_form_alter(&$form, $form_state, $form_id) {
       '#value' => 0,
     );
   }
+  if($form_id == 'ding_library_admin_settings_main_form'){
+    // Since we're adding an option to the form, the placeholder is no
+    // longer needed.
+    unset($form['placeholder']);
+
+    $form['ding_page_skip_first_menu_level'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Skips the first menu level if menu organisation is chosen for a page.'),
+      '#description' => t('This gives you the opportunity to have diffrent left menus on your "organisation" pages'),
+      '#default_value' => variable_get('ding_page_skip_first_menu_level', FALSE),
+    );
+  }
 }
 
 include_once('ding_page.features.inc');
