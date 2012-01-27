@@ -26,14 +26,11 @@
 #library-info .frame { border: 1px solid #fff; border-width: 1px 1px 0 1px; }
 #library-info .inner { 
   background: white;
-  border: 4px solid #444;
+  border: 4px solid #888;
   padding: 7px;
 }
 
-#library-info.open { background-image: url(../img/anchor-open.png); }
-#library-info.open .inner { border-color: #3fba27; }
-#library-info.closed { background-image: url(../img/anchor-closed.png); }
-#library-info.closed .inner { border-color: #620037; }
+#library-info.open .inner { border-color: #2c9d01; }
 
 #library-info h3 { display: block; margin: 0; font-size: 100%; font-weight: bold; }
 #library-info .opening-hours { background:  url(../img/opening-hours-background.png) no-repeat top left; margin: 8px 0 0 -7px; padding: 6px 0 0 7px; }
@@ -44,3 +41,4 @@
 #library-info .opening-hours dt { float: left; }
 #library-info .opening-hours dd { margin-left: 40%; }
 *:first-child+html #library-info .opening-hours dd { margin-left: 20%; } /* IE7 margin fix */
+

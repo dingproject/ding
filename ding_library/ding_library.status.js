@@ -5,7 +5,7 @@
 
 
 /**
- * Prototype for updateting library opening status.
+ * Prototype for updating library opening status.
  */
 Drupal.DingLibraryStatusUpdater = function () {
   var self = this;
@@ -164,5 +164,8 @@ jQuery(function($) {
 
   // Reload library status data every 10 minutes.
   updater.reloadDataEvery(600000);
+
+  // Expose our updater instance on the Drupal global object.
+  Drupal.dingLibraryStatusUpdaterInstance = updater;
 });
 

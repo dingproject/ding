@@ -175,56 +175,69 @@ Drupal.DingLibraryMapController = function (mapId, options) {
    * Update the infobox for the marker being hovered on.
    */
   self.updateInfoBox = function(marker, markerData) {
-      var day, days, section, sectionDays, nextDay, startTime, endTime, startDay, endDay, point;
+      var day, days, section, sectionDays, nextDay, startTime, endTime, startDay, endDay, currentlyOpen, point;
       // Add address attributes. Each field has a container with the
       // corresponding class name.
       $.each(['name', 'street', 'postal-code', 'city'], function (i, val) {
         self.infoBox.find('.' + val).text(markerData[val]);
       });
 
-      //Add opening hours
+      // Remove previous opening hours.
       section = self.infoBox.find('.opening-hours').empty();
-      days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']; //collection of weekdays to use for iteration
-      day = 0; //current day index
-       //iterate until end of week
+
+      // Collection of weekdays to use for iteration.
+      days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+      // Current day index.
+      day = 0;
+
+      // Iterate until end of week.
       while (day < days.length) {
-        sectionDays = [days[day]]; //add current day to to section
+        // Add current day to to section.
+        sectionDays = [days[day]];
         nextDay = day + 1;
 
+        // If we have opening hours for the day in question, process them.
         if (markerData.opening_hours[[days[day]]] &&
             markerData.opening_hours[[days[day]]].length > 0) {
           startTime = markerData.opening_hours[[days[day]]][0].open;
           endTime = markerData.opening_hours[[days[day]]][0].close;
 
+          // If following days have the same hours as current day then
+          // add these days to current section.
           while ( (nextDay < days.length) &&
                   (markerData.opening_hours[[days[nextDay]]].length > 0) &&
                   (startTime !== null) && (endTime !== null) &&
                   (startTime == markerData.opening_hours[[days[nextDay]]][0].open) &&
                   (endTime == markerData.opening_hours[[days[nextDay]]][0].close)) {
-            sectionDays.push(days[nextDay]); //if following days have same hours as current day then add these days to section
+            sectionDays.push(days[nextDay]);
             nextDay += 1;
           }
 
+          // If the current section spans more than one day, make the
+          // label specify the range of days, using the short form of
+          // the day names.
           if (sectionDays.length > 1) {
             startDay = self.options.shortDayNames[sectionDays.shift()];
             endDay = self.options.shortDayNames[sectionDays.pop()];
-            sectionDays = startDay.substr(0, 1).toUpperCase()+startDay.substr(1)+'-'+endDay.substr(0, 1).toUpperCase()+endDay.substr(1); //use short day names if section spans more than one day
+            sectionDays = startDay.substr(0, 1).toUpperCase() + startDay.substr(1) + '-' + endDay.substr(0, 1).toUpperCase() + endDay.substr(1);
           }
+          // Use full day name for section spanning a single day.
           else {
-            sectionDays = self.options.fullDayNames[sectionDays.shift()]; //use full day name for section spanning a single day
+            sectionDays = self.options.fullDayNames[sectionDays.shift()];
           }
 
+          // Get the start and end times, stripping off the seconds.
           startTime = (startTime !== null) ? startTime.substr(0, startTime.lastIndexOf(':')) : '';
           endTime = (endTime !== null) ? endTime.substr(0, endTime.lastIndexOf(':')) : '';
 
-          //add section to opening hours container
-          section.append('<dt>'+sectionDays+'</dt>');
-          section.append( '<dd>'+
-                            startTime +' - '+endTime+
-                          '</dd>');
+          // Add section to opening hours container.
+          section.append('<dt>' + sectionDays + '</dt>');
+          section.append('<dd>' + startTime + ' - ' + endTime + '</dd>');
         }
 
-        day = nextDay; //step to day after last day in current section
+        // Step to day after last day in current section,
+        day = nextDay;
       }
 
       // Add click handler to make a click on the infobox go to the
@@ -232,6 +245,19 @@ Drupal.DingLibraryMapController = function (mapId, options) {
       self.infoBox.unbind('click').click(function() {
         window.location = markerData.url;
       });
+
+      // Set open/closed classes on the infobox depending on the current
+      // state of the library.
+      if (Drupal.dingLibraryStatusUpdaterInstance && Drupal.dingLibraryStatusUpdaterInstance.libraryStatus.hasOwnProperty(markerData.nid)) {
+        currentlyOpen = Drupal.dingLibraryStatusUpdaterInstance.libraryStatus[markerData.nid];
+
+        if (currentlyOpen) {
+          self.infoBox.removeClass('closed').addClass('open');
+        }
+        else {
+          self.infoBox.removeClass('open').addClass('closed');
+        }
+      }
 
       // Position and show information box.
       point = self.map.openlayers.getPixelFromLonLat(marker.lonlat);
