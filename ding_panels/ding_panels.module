@@ -68,18 +68,10 @@ function template_preprocess_ding_panels_content_library_title(&$variables) {
     $variables['header_image'] = theme('imagecache', $variables['conf']['header_image_imagecache_preset'], $node->field_image['0']['filepath']);
   }
 
-  // Get the base URL for the library, so we can add sub-navigation.
-  if (isset($node->slug) && !empty($node->slug)) {
-    $base_url = 'biblioteker/' . $node->slug;
-  }
-  else {
-    $base_url = 'biblioteker/' . $node->nid;
-  }
-
   // Store the base_url so overriding preprocessors can use it.
-  $variables['base_url'] = $base_url;
+  $base_url = $variables['base_url'] = 'node/' . $node->nid;
 
-  $variables['library_title'] = l($node->title, 'node/' . $node->nid);
+  $variables['library_title'] = l($node->title, $base_url);
 
   if ($variables['conf']['display_navigation_links']) {
     $variables['library_links'] = _ding_panels_content_theme_library_title_navigation($node, $base_url);

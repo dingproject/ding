@@ -1146,7 +1146,7 @@ function ding_base_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_pattern';
-  $strongarm->value = 'content/[title-raw]';
+  $strongarm->value = '';
 
   $export['pathauto_node_pattern'] = $strongarm;
   $strongarm = new stdClass;
@@ -1461,7 +1461,7 @@ function ding_base_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_user_pattern';
-  $strongarm->value = 'users/[user-raw]';
+  $strongarm->value = '';
 
   $export['pathauto_user_pattern'] = $strongarm;
   $strongarm = new stdClass;

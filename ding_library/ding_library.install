@@ -1,7 +1,6 @@
 <?php
-
 /**
- * @file ding_library.install
+ * @file
  * Installation and upgrade hooks for the ding_library module.
  */
 
@@ -192,3 +191,37 @@ function ding_library_update_6007() {
   db_add_index($ret, 'ding_library', 'branch_id', array('branch_id'));
   return $ret;
 }
+
+/**
+ * Enable panels_subsites.
+ */
+function ding_library_update_6008() {
+  module_disable(array('purl'));
+  drupal_install_modules(array('panels_subsites'));
+}
+
+
+/**
+ * Migrate from our old slugs to panels_subsites.
+ */
+function ding_library_update_6009() {
+  $old_slugs = db_query('
+    SELECT p.id AS nid, p.value AS slug, n.type AS node_type
+    FROM purl AS p
+    INNER JOIN node AS n ON (n.nid = p.id)
+  ');
+
+  while ($row = db_fetch_object($old_slugs)) {
+    drupal_write_record('panels_subsites_slugs', $row);
+  }
+}
+
+/**
+ * Disable the PURL module, since it's no longer needed.
+ */
+function ding_library_update_6010() {
+  // Get rid of the PURL modules.
+  drupal_uninstall_module('purl_test');
+  drupal_uninstall_module('purl');
+}
+

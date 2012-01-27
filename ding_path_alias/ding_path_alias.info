@@ -1,0 +1,8 @@
+core = "6.x"
+dependencies[] = "pathauto"
+dependencies[] = "strongarm"
+dependencies[] = "transliteration"
+description = "Provides path alias configuration for Ding!"
+name = "Ding! path alias"
+package = "Ding!"
+

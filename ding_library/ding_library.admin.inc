@@ -1,7 +1,6 @@
 <?php
-
 /**
- * @file ding_library.admin.inc
+ * @file
  * Admin forms, page callbacks and related functions.
  *
  * Much of this stuff is a taken from the scaffolding example module.
@@ -164,117 +163,5 @@ function theme_ding_library_admin_ordering_form($form) {
   drupal_add_tabledrag('library-ordering-form', 'order', 'self', 'library-weight');
 
   return $output;
-}
-
-/**
- * Slug editing form.
- */
-function ding_library_admin_slugs_form(&$form_state) {
-  // Confirmation form for changing existing slugs. The storage array
-  // is set by the submit handler, and as long as it is non-empty, we're
-  // returned to the form.
-  if (!empty($form_state['storage']['slug_changes'])) {
-    $changes_text = array();
-    foreach ($form_state['storage']['slug_changes'] as $change) {
-      $changes_text[] = t('Change slug for %library from !old to !new', array(
-        '%library' => $change['title'],
-        '!old' => '<tt>' . check_plain($change['old_slug']) . '</tt>',
-        '!new' => '<tt>' . check_plain($change['new_slug']) . '</tt>',
-      ));
-    }
-
-    return confirm_form(array(), t('Please confirm these slug changes'), $_GET['q'], theme('item_list', $changes_text), t('Confirm'), t('Cancel'));
-  }
-
-  // Grab all the library nodes with their weight.
-  $query = db_query("
-    SELECT n.nid, n.title, p.value AS slug FROM {node} AS n
-    LEFT JOIN {purl} AS p ON (p.id = n.nid AND provider = 'ding_library')
-    WHERE n.type = 'library'
-    ORDER BY n.title;
-  ");
-
-  $existing = array();
-  $form = array();
-
-  $form['warning'] = array(
-    '#prefix' => '<div class="warning">',
-    '#value' => t("Here you can edit the identifying part of a library's URL, called “slugs”. Be aware that changing the existing slugs will URLs to change, resulting in dead links."),
-    '#suffix' => '</div>',
-  );
-
-  $form['records']['#tree'] = TRUE;
-  while ($row = db_fetch_object($query)) {
-    $form['records'][$row->nid] = array(
-      '#type' => 'textfield',
-      '#title' => $row->title,
-      '#default_value' => $row->slug,
-    );
-    // Add the existing slugs to an array, so we'll be able to detect
-    // overwriting in the validation.
-    if (!empty($row->slug)) {
-      $existing[$row->nid] = $row->slug;
-    }
-  }
-
-  $form['existing_slugs'] = array(
-    '#type' => 'value',
-    '#value' => $existing,
-  );
-
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Save changes'),
-  );
-
-  return $form;
-}
-
-/**
- * Submit handler for the slug editing form.
- */
-function ding_library_admin_slugs_form_submit($form, &$form_state) {
-  // If the there's slug changes in the storage array, it means that
-  // we've been through the confirmation form, and should now proceeed
-  // to change the slugs in the database.
-  if (isset($form_state['storage']['slug_changes'])) {
-    foreach ($form_state['storage']['slug_changes'] as $change) {
-      purl_save(array(
-        'id' => $change['nid'],
-        'provider' => 'ding_library',
-        'value' => $change['new_slug'],
-      ));
-
-      // Unset the storage, so we'll won't get the confirmation page again.
-      unset($form_state['storage']);
-      return;
-    }
-  }
-
-  $slug_changes = array();
-
-  foreach ($form_state['values']['records'] as $nid => $slug) {
-    if (!empty($slug)) {
-      if (isset($form_state['values']['existing_slugs'][$nid]) && $form_state['values']['existing_slugs'][$nid] != $slug) {
-        // Existing slug is being changed, store the changes so we can
-        // create a confirmation form with it.
-        $slug_changes[$nid] = array(
-          'nid' => $nid,
-          'title' => $form['records'][$nid]['#title'],
-          'old_slug' => $form_state['values']['existing_slugs'][$nid],
-          'new_slug' => ding_library_slugify($slug),
-        );
-      }
-      else {
-        // Save the newly added slug via PURL.
-        purl_save(array(
-          'id' => $nid,
-          'provider' => 'ding_library',
-          'value' => ding_library_slugify($slug),
-        ));
-      }
-    }
-  }
-  $form_state['storage']['slug_changes'] = $slug_changes;
 }
 

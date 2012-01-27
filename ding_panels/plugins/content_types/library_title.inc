@@ -1,10 +1,8 @@
 <?php
-
 /**
- * @file library_title.inc
+ * @file
  * Provides several library portal page related panels content types.
  */
-
 
 /**
  * Callback function to supply a list of content types.

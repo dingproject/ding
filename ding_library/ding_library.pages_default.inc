@@ -11,7 +11,7 @@ function ding_library_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Library information page';
   $page->admin_description = '';
-  $page->path = 'biblioteker/%slug/om';
+  $page->path = 'node/%nid/om';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -39,10 +39,10 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $page->arguments = array(
-    'slug' => array(
-      'id' => 0,
-      'identifier' => 'Library slug',
-      'name' => 'ding_slug',
+    'nid' => array(
+      'id' => 1,
+      'identifier' => 'Library node',
+      'name' => 'nid',
       'settings' => array(),
     ),
   );
@@ -67,6 +67,16 @@ function ding_library_default_page_manager_pages() {
     'relationships' => array(),
     'access' => array(
       'logic' => 'and',
+      'plugins' => array(
+        0 => array(
+          'name' => 'library_page_type',
+          'settings' => array(
+            'library_page_type' => 'normal',
+          ),
+          'context' => 'argument_nid_1',
+          'not' => FALSE,
+        ),
+      ),
     ),
   );
   $display = new panels_display;
@@ -82,7 +92,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'Om %slug:title';
+  $display->title = 'Om %nid:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -93,7 +103,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_1',
+      'context' => 'argument_nid_1',
       'override_title' => 1,
       'override_title_text' => '',
     );
@@ -115,7 +125,7 @@ function ding_library_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'context' => array(
-        0 => 'argument_ding_slug_1',
+        0 => 'argument_nid_1',
       ),
     );
     $pane->cache = array();
@@ -135,7 +145,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_0',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -156,7 +166,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_0',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -180,7 +190,8 @@ function ding_library_default_page_manager_pages() {
     $pane->configuration = array(
       'context' => array(
         0 => 'empty',
-        1 => 'argument_ding_slug_1',
+        1 => 'argument_nid_1',
+        2 => 'empty',
       ),
       'override_title' => 0,
       'override_title_text' => '',
@@ -203,9 +214,9 @@ function ding_library_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'display_header_image' => FALSE,
-      'header_image_imagecache_preset' => '2',
+      'header_image_imagecache_preset' => '120_120',
       'display_navigation_links' => TRUE,
-      'context' => 'argument_ding_slug_1',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -231,7 +242,7 @@ function ding_library_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Library article list';
   $page->admin_description = '';
-  $page->path = 'biblioteker/%slug/blog';
+  $page->path = 'node/%nid/blog';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -259,10 +270,10 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $page->arguments = array(
-    'slug' => array(
-      'id' => 0,
-      'identifier' => 'Library slug',
-      'name' => 'ding_slug',
+    'nid' => array(
+      'id' => 1,
+      'identifier' => 'Library node',
+      'name' => 'nid',
       'settings' => array(),
     ),
   );
@@ -287,6 +298,16 @@ function ding_library_default_page_manager_pages() {
     'relationships' => array(),
     'access' => array(
       'logic' => 'and',
+      'plugins' => array(
+        1 => array(
+          'name' => 'library_page_type',
+          'settings' => array(
+            'library_page_type' => 'normal',
+          ),
+          'context' => 'argument_nid_1',
+          'not' => FALSE,
+        ),
+      ),
     ),
   );
   $display = new panels_display;
@@ -302,7 +323,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%slug:title Blog-indlæg';
+  $display->title = '%nid:title blog';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -314,7 +335,7 @@ function ding_library_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'context' => array(
-        0 => 'argument_ding_slug_1',
+        0 => 'argument_nid_1',
       ),
     );
     $pane->cache = array();
@@ -334,7 +355,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_0',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -356,7 +377,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_0',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -380,7 +401,8 @@ function ding_library_default_page_manager_pages() {
     $pane->configuration = array(
       'context' => array(
         0 => 'empty',
-        1 => 'argument_ding_slug_1',
+        1 => 'argument_nid_1',
+        2 => 'empty',
       ),
       'override_title' => 0,
       'override_title_text' => '',
@@ -403,9 +425,9 @@ function ding_library_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'display_header_image' => FALSE,
-      'header_image_imagecache_preset' => '2',
+      'header_image_imagecache_preset' => '120_120',
       'display_navigation_links' => TRUE,
-      'context' => 'argument_ding_slug_1',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -431,7 +453,7 @@ function ding_library_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Library event list';
   $page->admin_description = '';
-  $page->path = 'biblioteker/%slug/arrangementer';
+  $page->path = 'node/%nid/arrangementer';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -459,10 +481,10 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $page->arguments = array(
-    'slug' => array(
-      'id' => 0,
-      'identifier' => 'Library slug',
-      'name' => 'ding_slug',
+    'nid' => array(
+      'id' => 1,
+      'identifier' => 'Library node',
+      'name' => 'nid',
       'settings' => array(),
     ),
   );
@@ -487,6 +509,18 @@ function ding_library_default_page_manager_pages() {
     'relationships' => array(),
     'access' => array(
       'logic' => 'and',
+      'plugins' => array(
+        0 => array(
+          'name' => 'node_type',
+          'settings' => array(
+            'type' => array(
+              'library' => 'library',
+            ),
+          ),
+          'context' => 'argument_nid_1',
+          'not' => FALSE,
+        ),
+      ),
     ),
   );
   $display = new panels_display;
@@ -503,7 +537,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%slug:title Arrangementer';
+  $display->title = 'Arrangementer på %slug:title ';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -536,7 +570,7 @@ function ding_library_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'context' => array(
-        0 => 'argument_ding_slug_1',
+        0 => 'argument_nid_1',
       ),
     );
     $pane->cache = array();
@@ -556,7 +590,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_0',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -577,7 +611,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_0',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -601,7 +635,8 @@ function ding_library_default_page_manager_pages() {
     $pane->configuration = array(
       'context' => array(
         0 => 'empty',
-        1 => 'argument_ding_slug_1',
+        1 => 'argument_nid_1',
+        2 => 'empty',
       ),
       'override_title' => 0,
       'override_title_text' => '',
@@ -624,9 +659,9 @@ function ding_library_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'display_header_image' => FALSE,
-      'header_image_imagecache_preset' => '2',
+      'header_image_imagecache_preset' => '120_120',
       'display_navigation_links' => TRUE,
-      'context' => 'argument_ding_slug_1',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -652,7 +687,7 @@ function ding_library_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Library facilities page';
   $page->admin_description = '';
-  $page->path = 'biblioteker/%slug/faciliteter';
+  $page->path = 'node/%nid/faciliteter';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -680,10 +715,10 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $page->arguments = array(
-    'slug' => array(
-      'id' => 0,
-      'identifier' => 'Library slug',
-      'name' => 'ding_slug',
+    'nid' => array(
+      'id' => 1,
+      'identifier' => 'Library node',
+      'name' => 'nid',
       'settings' => array(),
     ),
   );
@@ -708,6 +743,16 @@ function ding_library_default_page_manager_pages() {
     'relationships' => array(),
     'access' => array(
       'logic' => 'and',
+      'plugins' => array(
+        0 => array(
+          'name' => 'library_page_type',
+          'settings' => array(
+            'library_page_type' => 'normal',
+          ),
+          'context' => 'argument_nid_1',
+          'not' => FALSE,
+        ),
+      ),
     ),
   );
   $display = new panels_display;
@@ -723,7 +768,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%slug:title Faciliteter';
+  $display->title = 'Faciliteter på %nid:title';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -734,7 +779,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_0',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -755,7 +800,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_1',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -777,7 +822,7 @@ function ding_library_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => 'argument_ding_slug_1',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -801,7 +846,8 @@ function ding_library_default_page_manager_pages() {
     $pane->configuration = array(
       'context' => array(
         0 => 'empty',
-        1 => 'argument_ding_slug_1',
+        1 => 'argument_nid_1',
+        2 => 'empty',
       ),
       'override_title' => 0,
       'override_title_text' => '',
@@ -824,9 +870,9 @@ function ding_library_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'display_header_image' => FALSE,
-      'header_image_imagecache_preset' => '2',
+      'header_image_imagecache_preset' => '120_120',
       'display_navigation_links' => TRUE,
-      'context' => 'argument_ding_slug_1',
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );

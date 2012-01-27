@@ -1,0 +1,108 @@
+<?php
+/**
+ * @file
+ * Path alias configuration for Ding!
+ */
+
+/**
+ * Implements hook_path_alias_types().
+ */
+function ding_path_alias_path_alias_types() {
+  $types = array();
+
+  if (module_exists('ding_library')) {
+    $types['node/%/bookpc'] = t('Library book PC pages');
+    $types['node/%/faciliteter'] = t('Library facilities pages');
+    $types['node/%/lokalt'] = t('Library local pages');
+    $types['node/%/om'] = t('Library about page');
+
+    if (module_exists('ding_content')) {
+      $types['node/%/blog'] = t('Library news pages');
+    }
+
+    if (module_exists('ding_event')) {
+      $types['node/%/arrangementer'] = t('Library event pages');
+    }
+  }
+
+  return $types;
+}
+
+/**
+ * Implements hook_pathauto().
+ */
+function ding_path_alias_pathauto($op) {
+  switch ($op) {
+    case 'settings':
+      // Pathauto module isn't created with the kind of functionality we have in
+      // mind: Create a bunch of different path aliases with different url
+      // patterns. We need to create a setting for each pattern type we want to
+      // use as the batch callback needs to know what the internal url will be.
+      // Since pathauto will key the form items on the module value, we need to
+      // create a unique module defition per url pattern.
+      $settings = array();
+
+      // Settings 
+      $defaults = array(
+        'token_type' => 'node',
+        'batch_file' => drupal_get_path('module', 'ding_path_alias') . '/ding_path_alias.pathauto.inc',
+      );
+
+      if (module_exists('ding_library')) {
+        $settings['library_bookpc_page'] = (object) array_merge($defaults, array(
+          'module' => 'library_bookpc_page',
+          'patterndescr' => t('Library bookPC page'),
+          'groupheader' => t('Library bookPC page'),
+          'patterndefault' => '[panels_subsites_prefix]/[panels_subsites_slug]/bookpc',
+          'batch_update_callback' => 'ding_path_alias_library_bookpc_page_pathauto_bulk_update_batch_process',
+        ));
+
+        $settings['library_facilities_page'] = (object) array_merge($defaults, array(
+          'module' => 'library_facilities_page',
+          'patterndescr' => t('Library facilities page'),
+          'groupheader' => t('Library facilities page'),
+          'patterndefault' => '[panels_subsites_prefix]/[panels_subsites_slug]/faciliteter',
+          'batch_update_callback' => 'ding_path_alias_library_facilities_page_pathauto_bulk_update_batch_process',
+        ));
+
+        $settings['library_lokalt_page'] = (object) array_merge($defaults, array(
+          'module' => 'library_local_page',
+          'patterndescr' => t('Local page'),
+          'groupheader' => t('Library local page'),
+          'patterndefault' => '[panels_subsites_prefix]/[panels_subsites_slug]/lokalt',
+          'batch_update_callback' => 'ding_path_alias_library_local_page_pathauto_bulk_update_batch_process',
+        ));
+
+        $settings['library_about_page'] = (object) array_merge($defaults, array(
+          'module' => 'library_about_page',
+          'patterndescr' => t('Library about page'),
+          'groupheader' => t('Library about page'),
+          'patterndefault' => '[panels_subsites_prefix]/[panels_subsites_slug]/om',
+          'batch_update_callback' => 'ding_path_alias_library_about_page_pathauto_bulk_update_batch_process',
+        ));
+
+        if (module_exists('ding_content')) {
+          $settings['library_blog_page'] = (object) array_merge($defaults, array(
+            'module' => 'library_blog_page',
+            'patterndescr' => t('Library blog page'),
+            'groupheader' => t('Library blog page'),
+            'patterndefault' => '[panels_subsites_prefix]/[panels_subsites_slug]/blog',
+            'batch_update_callback' => 'ding_path_alias_library_blog_page_pathauto_bulk_update_batch_process',
+          ));
+        }
+
+        if (module_exists('ding_event')) {
+          $settings['library_event_page'] = (object) array_merge($defaults, array(
+            'module' => 'library_event_page',
+            'patterndescr' => t('Library event page'),
+            'groupheader' => t('Library event page'),
+            'patterndefault' => '[panels_subsites_prefix]/[panels_subsites_slug]/arrangementer',
+            'batch_update_callback' => 'ding_path_alias_library_event_page_pathauto_bulk_update_batch_process',
+          ));
+        }
+      }
+
+      return $settings;
+  }
+}
+

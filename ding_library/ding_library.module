@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Provides the library node type for the Ding! project.
@@ -37,13 +36,15 @@ function ding_library_menu() {
     'file' => 'ding_library.admin.inc',
   );
 
-  $items['admin/settings/ding_library/slugs'] = array(
-    'title' => 'Slugs',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ding_library_admin_slugs_form'),
-    'access arguments' => array('configure libraries'),
-    'type' => MENU_LOCAL_TASK,
-    'file' => 'ding_library.admin.inc',
+  // Since we switched the library URLs to be node/%/something, we need
+  // to redirect the old ones that might not be covered by URL aliases.
+  $items['biblioteker/%'] = array(
+    'title' => 'Redirect from old library URLs',
+    'page callback' => 'ding_library_legacy_redirect_page',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'ding_library.pages.inc',
   );
 
   return $items;
@@ -155,8 +156,6 @@ function ding_library_nodeapi(&$node, $op, $teaser, $page) {
         unset($additions['vid']);
         unset($additions['nid']);
 
-        $additions['slug'] = ding_library_get_slug($node->nid);
-
         return $additions;
       }
       break;
@@ -260,19 +259,6 @@ function ding_library_rules_event_info() {
 }
 
 /**
- * Implementation of hook_purl_provider().
- */
-function ding_library_purl_provider() {
-  return array(
-    'ding_library' => array(
-      'name' => t('Ding! Library'),
-      'description' => t('Loads a Ding! Library based on its slug'),
-      'example' => 'my-library',
-    ),
-  );
-}
-
-/**
  * Implementation of hook_requirements().
  */
 function ding_library_requirements($phase) {
@@ -335,8 +321,6 @@ function _ding_library_portal_menu($node, $update = TRUE) {
 function ding_library_token_list($type = 'all') {
   $tokens = array();
   if ($type == 'node' || $type == 'all') {
-    $tokens['node']['ding_slug'] = t('Slug for the current library node');
-    $tokens['node']['ding_library_slug'] = t('Slug for the library node this content is associated with.');
     if (function_exists('ding_user_user')) {
       $tokens['user']['ding_user_display_name'] = t('Node author display name');
       $tokens['user']['ding_user_display_name_raw'] = t('Node author display name (unfiltered)');
@@ -357,55 +341,6 @@ function ding_library_token_values($type, $object = NULL, $options = array()) {
   $tokens = array();
   if ($type == 'node') {
     $node = $object;
-
-    // If node has a slug, use that.
-    if (isset($node->slug)) {
-      $tokens['ding_slug'] = check_plain($node->slug);
-      // For the library node, the library slug is their own.
-      if ($node->type == 'library') {
-        $tokens['ding_library_slug'] = check_plain($node->slug);
-      }
-    }
-    // If there is no slug set on the object, try looking it up
-    // in the database, otherwise return the node id.
-    else {
-      $slug = ding_library_get_slug($node->nid);
-      if (!$slug) {
-        $slug = $node->nid;
-      }
-
-      $tokens['ding_slug'] = $slug;
-      if ($node->type == 'library') {
-        $tokens['ding_library_slug'] = $slug;
-      }
-    }
-
-    // If we didn't set the library slug above, try looking it up from
-    // the related library node.
-    if (!isset($tokens['ding_library_slug'])) {
-      // Look up the slug of the related library.
-      if (isset($node->field_library_ref[0]['nid']) && !empty($node->field_library_ref[0]['nid'])) {
-        $slug = ding_library_get_slug($node->field_library_ref[0]['nid']);
-
-        if ($slug) {
-          $tokens['ding_library_slug'] = check_plain($slug);
-        }
-        // If the related library doesn't have a slug, return its nid.
-        else {
-          $tokens['ding_library_slug'] = $node->field_library_ref[0]['nid'];
-        }
-      }
-    }
-
-    // Finally, if we failed to set our tokens above, make sure to
-    // return empty strings, since otherwise the token itself will be
-    // printed in the output.
-    if (empty($tokens['ding_slug'])) {
-      $tokens['ding_slug'] = '';
-    }
-    if (empty($tokens['ding_library_slug'])) {
-      $tokens['ding_library_slug'] = '';
-    }
 
     if (function_exists('ding_user_user')) {
       $account = user_load($node->uid);
@@ -435,70 +370,6 @@ function ding_library_token_values($type, $object = NULL, $options = array()) {
   }
 
   return $tokens;
-}
-
-/**
- * Slugify a piece of text, ie. make it ready for use in URLs.
- *
- * @param string $input
- *      Text to slugify.
- */
-function ding_library_slugify($input) {
-  if (module_exists('transliteration')) {
-    // Transliterate all letters down to ASCII
-    $output = transliteration_get($input, '-', 'da');
-  }
-  else {
-    $output = $input;
-  }
-
-  // Remove all characters that are not lowercase alphanumeric.
-  $output = preg_replace('/[^a-z0-9-]+/', '-', drupal_strtolower($output));
-  // Remove dashes at the end of the string
-  $output = preg_replace('/-+$/', '', $output);
-  return $output;
-}
-
-/**
- * Get a library slug by the corresponding node ID
- *
- * @param integer $nid
- *    The node ID.
- * @return string
- *    The slug matching the node or boolean FALSE if no match.
- */
-function ding_library_get_slug($nid) {
-  // Load the slug from PURL.
-  $purl = purl_load(array(
-    'id' => $nid,
-    'provider' => 'ding_library'
-  ));
-
-  if (is_array($purl) && !empty($purl['value'])) {
-    return $purl['value'];
-  }
-  return FALSE;
-}
-
-/**
- * Load a library node based on its slug.
- *
- * @param $slug
- *   Slug text string.
- * @return
- *   Loaded node object or boolean FALSE if no match.
- */
-function ding_library_load_by_slug($slug) {
-  $purl = purl_load(array(
-    'provider' => 'ding_library',
-    'value' => $slug,
-  ));
-
-  if ($purl && $purl['id'] > 0) {
-    return node_load($purl['id']);
-  }
-
-  return FALSE;
 }
 
 include_once('ding_library.features.inc');
