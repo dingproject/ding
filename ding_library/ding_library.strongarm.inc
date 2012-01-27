@@ -282,6 +282,13 @@ function ding_library_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'opening_hours_enabled_library';
+  $strongarm->value = 1;
+  $export['opening_hours_enabled_library'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_library_about_page_pattern';
   $strongarm->value = '[panels_subsites_prefix]/[panels_subsites_slug]/om';
   $export['pathauto_library_about_page_pattern'] = $strongarm;

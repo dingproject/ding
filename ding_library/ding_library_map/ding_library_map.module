@@ -105,9 +105,6 @@ function _ding_library_marker_data() {
 		$libraries[$row->nid] = $row;
   }
 
-  // Load office hours data for each library.
-  $oh_data = office_hours_bulk_load(implode(',', array_keys($libraries)), 'field_opening_hours');
-
   // Add marker for each library.
   $markers = array();
   foreach ($libraries as $lib) {
@@ -119,7 +116,6 @@ function _ding_library_marker_data() {
       'street' => $lib->street,
       'city' => $lib->city,
       'postal-code' => (integer) $lib->postal_code,
-      'opening_hours' => $oh_data['data'][$lib->nid]['week'],
       'url' => url('node/' . $lib->nid, array('absolute' => TRUE)),
       'text' => FALSE
     );
