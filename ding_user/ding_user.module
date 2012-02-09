@@ -235,6 +235,11 @@ function ding_user_form_alter(&$form, $form_state, $form_id) {
       break;
     case 'user_profile_form';
       global $user;
+      // Make a more semantic title if possible.
+      $account = $form['_account']['#value'];
+      if (!empty($account->display_name)) {
+        drupal_set_title(check_plain($account->display_name));
+      }
       // Strip all but account form elements from profile form for normal library users
       if (!ding_user_has_secure_role($user)) {
         // These elements we keep:
