@@ -2024,7 +2024,6 @@ function ding_content_content_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Arbejder med');
-  t('Beskrivelse');
   t('Bibliotek');
   t('Biblioteker');
   t('Entré');

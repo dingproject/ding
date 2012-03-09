@@ -11,10 +11,9 @@ function ding_content_views_default_views() {
   $view->name = 'article_list';
   $view->description = 'List of articles';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -41,9 +40,9 @@ function ding_content_views_default_views() {
       'link_to_taxonomy' => 1,
       'limit' => 1,
       'vids' => array(
-        '1' => 1,
-        '3' => 0,
-        '2' => 0,
+        1 => 1,
+        3 => 0,
+        2 => 0,
       ),
       'exclude' => 0,
       'id' => 'tid',
@@ -387,11 +386,11 @@ function ding_content_views_default_views() {
       'field' => 'uid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
-        '5' => 0,
-        '6' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
       ),
       'override' => array(
         'button' => 'Brug standard',
@@ -412,10 +411,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -563,11 +562,11 @@ function ding_content_views_default_views() {
       'field' => 'field_library_ref_nid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
-        '5' => 0,
-        '6' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
       ),
       'override' => array(
         'button' => 'Brug standard',
@@ -590,10 +589,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -714,12 +713,12 @@ function ding_content_views_default_views() {
       'field' => 'field_library_ref_nid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
-        '5' => 0,
-        '6' => 0,
-        '7' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
       ),
       'override' => array(
         'button' => 'Brug standard',
@@ -744,10 +743,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -811,10 +810,10 @@ function ding_content_views_default_views() {
       'field' => 'field_library_ref_nid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '4' => 0,
-        '5' => 0,
-        '6' => 0,
+        2 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
       ),
       'override' => array(
         'button' => 'Use default',
@@ -840,10 +839,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -908,10 +907,10 @@ function ding_content_views_default_views() {
       'field' => 'uid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '5' => 0,
-        '6' => 0,
+        2 => 0,
+        3 => 0,
+        5 => 0,
+        6 => 0,
       ),
       'override' => array(
         'button' => 'Brug standard',
@@ -936,10 +935,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -1027,10 +1026,9 @@ function ding_content_views_default_views() {
   $view->name = 'blog_category_list';
   $view->description = 'List of blog categories with usage count.';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'term_data';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1111,7 +1109,7 @@ function ding_content_views_default_views() {
     'vid' => array(
       'operator' => 'in',
       'value' => array(
-        '1' => '1',
+        1 => '1',
       ),
       'group' => '0',
       'exposed' => FALSE,
@@ -1167,10 +1165,9 @@ function ding_content_views_default_views() {
   $view->name = 'ding_content_admin';
   $view->description = 'View, edit and delete your site\'s content.';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1504,10 +1501,9 @@ function ding_content_views_default_views() {
   $view->name = 'feature_list';
   $view->description = 'Displays a list of features, either global or related to the library in question.';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1667,10 +1663,9 @@ function ding_content_views_default_views() {
   $view->name = 'recommendation_list';
   $view->description = '';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Standarder', 'default');
   $handler->override_option('fields', array(
@@ -1897,7 +1892,7 @@ function ding_content_views_default_views() {
     'tid' => array(
       'operator' => 'or',
       'value' => array(
-        '3' => '3',
+        3 => '3',
       ),
       'group' => '0',
       'exposed' => FALSE,
@@ -1971,10 +1966,9 @@ function ding_content_views_default_views() {
   $view->name = 'taxonomy_term_view';
   $view->description = 'A clone of the view to emulate Drupal core\'s handling of taxonomy/term; It differs from the standard one by not providing a page';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('sorts', array(
@@ -2027,11 +2021,11 @@ function ding_content_views_default_views() {
         'track' => 0,
       ),
       'validate_argument_vocabulary' => array(
-        '3' => 0,
-        '4' => 0,
-        '1' => 0,
-        '5' => 0,
-        '2' => 0,
+        3 => 0,
+        4 => 0,
+        1 => 0,
+        5 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tids',
       'validate_argument_php' => '',
@@ -2193,10 +2187,9 @@ function ding_content_views_default_views() {
   $view->name = 'topic_list';
   $view->description = 'List of topics';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -2447,11 +2440,11 @@ function ding_content_views_default_views() {
       'field' => 'field_library_ref_nid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
-        '5' => 0,
-        '6' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
       ),
       'relationship' => 'none',
       'default_options_div_prefix' => '',
@@ -2470,10 +2463,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -2530,10 +2523,9 @@ function ding_content_views_default_views() {
   $view->name = 'user_blog_list';
   $view->description = 'List of blog/articles posted by a user.';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('sorts', array(
@@ -2572,11 +2564,11 @@ function ding_content_views_default_views() {
       'field' => 'uid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
-        '5' => 0,
-        '6' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
       ),
       'relationship' => 'none',
       'default_options_div_prefix' => '',
@@ -2593,10 +2585,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -2663,10 +2655,9 @@ function ding_content_views_default_views() {
   $view->name = 'user_comments_list';
   $view->description = 'List of comments a user has posted.';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'comments';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('relationships', array(
@@ -2765,11 +2756,11 @@ function ding_content_views_default_views() {
       'relationship' => 'uid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
-        '5' => 0,
-        '6' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
       ),
       'default_options_div_prefix' => '',
       'default_argument_user' => 0,
@@ -2787,10 +2778,10 @@ function ding_content_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '4' => 0,
-        '5' => 0,
-        '1' => 0,
-        '2' => 0,
+        4 => 0,
+        5 => 0,
+        1 => 0,
+        2 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
