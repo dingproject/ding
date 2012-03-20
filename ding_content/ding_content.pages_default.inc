@@ -607,7 +607,15 @@ function ding_content_default_page_manager_handlers() {
   $display = new panels_display;
   $display->layout = 'twocol_left_stacked';
   $display->layout_settings = array();
-  $display->panel_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'top' => NULL,
+      'left' => NULL,
+      'right' => NULL,
+      'bottom' => NULL,
+    ),
+  );
   $display->cache = array();
   $display->title = '%node:title';
   $display->content = array();
@@ -632,7 +640,9 @@ function ding_content_default_page_manager_handlers() {
       'context' => 'argument_nid_1',
     );
     $pane->cache = array();
-    $pane->style = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
@@ -640,6 +650,28 @@ function ding_content_default_page_manager_handlers() {
     $display->panels['left'][0] = 'new-1';
     $pane = new stdClass;
     $pane->pid = 'new-2';
+    $pane->panel = 'right';
+    $pane->type = 'week';
+    $pane->subtype = 'week';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'hide_if_empty' => 1,
+      'context' => 'argument_nid_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $display->content['new-2'] = $pane;
+    $display->panels['right'][0] = 'new-2';
+    $pane = new stdClass;
+    $pane->pid = 'new-3';
     $pane->panel = 'right';
     $pane->type = 'relevant';
     $pane->subtype = 'relevant_campaigns';
@@ -654,12 +686,14 @@ function ding_content_default_page_manager_handlers() {
       'override_title_text' => '',
     );
     $pane->cache = array();
-    $pane->style = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['right'][0] = 'new-2';
+    $pane->position = 1;
+    $display->content['new-3'] = $pane;
+    $display->panels['right'][1] = 'new-3';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
@@ -810,18 +844,19 @@ function ding_content_default_page_manager_handlers() {
     $pane = new stdClass;
     $pane->pid = 'new-5';
     $pane->panel = 'right';
-    $pane->type = 'block';
-    $pane->subtype = 'opening_hours-week';
+    $pane->type = 'week';
+    $pane->subtype = 'week';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
+      'hide_if_empty' => 1,
+      'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
     $pane->cache = array();
     $pane->style = array(
       'settings' => NULL,
-      'style' => 'ding_box',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -1023,18 +1058,18 @@ function ding_content_default_page_manager_handlers() {
     $pane = new stdClass;
     $pane->pid = 'new-5';
     $pane->panel = 'right';
-    $pane->type = 'library';
-    $pane->subtype = 'library_hours';
+    $pane->type = 'week';
+    $pane->subtype = 'week';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
+      'hide_if_empty' => 1,
       'context' => 'argument_nid_1',
       'override_title' => 0,
       'override_title_text' => '',
     );
     $pane->cache = array();
     $pane->style = array(
-      'style' => 'ding_box',
       'settings' => NULL,
     );
     $pane->css = array();

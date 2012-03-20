@@ -6,9 +6,7 @@
 (function ($) {
   "use strict";
 
-  /**
-  * Prototype for library opening status indicators.
-  */
+  // Prototype for library opening status indicators.
   Drupal.DingLibraryStatusIndicator = function (options) {
     var self = this;
 
@@ -35,7 +33,7 @@
       if (parts.length === 2) {
         return {
           hours: parseInt(parts[0], 10),
-          minutes: parseInt(parts[1], 10),
+          minutes: parseInt(parts[1], 10)
         };
       }
     };
@@ -99,8 +97,12 @@
     // Update our display with a new date value.
     self.update = function (date) {
       var currentState = self.isOpen;
-      // Default to current date.
-      date = date || new Date();
+
+      // Make sure we have a proper date object (Firefox gives us a
+      // lateness parameter, where we'd normally get undefined).
+      if (!_.isDate(date)) {
+        date = new Date();
+      }
 
       // Overwrite the date and recalculate status.
       self.date = date;

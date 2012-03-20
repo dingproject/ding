@@ -616,6 +616,13 @@ function ding_content_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'opening_hours_enabled_feature';
+  $strongarm->value = 1;
+  $export['opening_hours_enabled_feature'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'panels_subsites_ref_article';
   $strongarm->value = array(
     'tema_site' => array(
