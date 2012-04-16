@@ -9,7 +9,16 @@
     <title><?php echo check_plain($node->title); ?></title>
     <?php // Create a uid using all the static values we have ?>
     <uid><?php echo md5($node->nid . $node->type . $node->language . $node->vid . $node->revision_uid); ?></uid>
-    <description><?php echo check_plain($node->field_teaser[0]['value']); ?></description>
+    <description><![CDATA[
+      <p><?php echo check_plain($node->field_teaser[0]['value']); ?></p>
+      <?php echo $node->teaser; ?>
+      <?php
+      // As we're using a full URL, we can't get image dimensions automatically
+      // added (shaky logic in theme_image). See
+      // http://api.drupal.org/api/drupal/includes%21theme.inc/function/theme_image/6#comment-63
+      echo theme('image', url($node->field_list_image[0]['filepath'], array('absolute' => TRUE)), $node->field_list_image[0]['data']['alt'], $node->field_list_image[0]['data']['title'], NULL, FALSE); ?>
+    ]]>
+    </description>
     <stardate><?php echo $node->activity_start ?></stardate>
     <enddate><?php echo $node->activity_end ?></enddate>
     <bibname><?php echo $node->activity_library['name']; ?></bibname>
