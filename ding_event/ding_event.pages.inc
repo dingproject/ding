@@ -22,8 +22,8 @@ function ding_event_pages_kultunaut_feed() {
     WHERE n.status > 0 AND
     (cte.field_datetime_value > NOW() OR field_datetime_value2 > NOW())
     ORDER BY cte.field_datetime_value ASC
-    LIMIT 0, 50;
-  ");
+    LIMIT 0, %d;
+  ", variable_get('ding_event_kultunaut_limit', 50));
 
   // Load each node found (remember that in Drupal 7, we can use
   // node_load_multiple() instead.
