@@ -30,7 +30,9 @@ function ding_panels_library_title_content_type_render($subtype, $conf, $panel_a
   $node = isset($context->data) ? drupal_clone($context->data) : NULL;
 
   $block = new stdClass();
-  $block->content = theme('ding_panels_content_library_title', $node, $conf);
+  if ($node->type != 'tema_site') {
+    $block->content = theme('ding_panels_content_library_title', $node, $conf);
+  }
 
   return $block;
 }
