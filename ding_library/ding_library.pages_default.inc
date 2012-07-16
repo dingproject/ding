@@ -67,16 +67,7 @@ function ding_library_default_page_manager_pages() {
     'relationships' => array(),
     'access' => array(
       'logic' => 'and',
-      'plugins' => array(
-        0 => array(
-          'name' => 'library_page_type',
-          'settings' => array(
-            'library_page_type' => 'normal',
-          ),
-          'context' => 'argument_nid_1',
-          'not' => FALSE,
-        ),
-      ),
+      'plugins' => array(),
     ),
   );
   $display = new panels_display;
@@ -299,16 +290,7 @@ function ding_library_default_page_manager_pages() {
     'relationships' => array(),
     'access' => array(
       'logic' => 'and',
-      'plugins' => array(
-        1 => array(
-          'name' => 'library_page_type',
-          'settings' => array(
-            'library_page_type' => 'normal',
-          ),
-          'context' => 'argument_nid_1',
-          'not' => FALSE,
-        ),
-      ),
+      'plugins' => array(),
     ),
   );
   $display = new panels_display;
@@ -511,18 +493,7 @@ function ding_library_default_page_manager_pages() {
     'relationships' => array(),
     'access' => array(
       'logic' => 'and',
-      'plugins' => array(
-        0 => array(
-          'name' => 'node_type',
-          'settings' => array(
-            'type' => array(
-              'library' => 'library',
-            ),
-          ),
-          'context' => 'argument_nid_1',
-          'not' => FALSE,
-        ),
-      ),
+      'plugins' => array(),
     ),
   );
   $display = new panels_display;
