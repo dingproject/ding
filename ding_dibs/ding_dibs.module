@@ -116,7 +116,7 @@ function ding_dibs_payment_prepare($amount, $params, $callback) {
   }
 
   $params += array(
-    'order_info_short' => t('Payment of library dues'),
+    'order_info_short' => t('Payment of library dues: @debts', array('@debts' => implode(',', $params['params']['selected_debts']))),
     'order_price_info' => array('Total' => $amount),
     // dibs module fills in missing data.
   );
