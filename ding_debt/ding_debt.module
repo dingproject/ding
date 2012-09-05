@@ -166,5 +166,48 @@ function theme_ding_debt_list_form($form) {
 
   $output = theme('table', $header, $rows, array('colgroups' => $colgroups));
   $output .= drupal_render($form);
+  
+  $default = variable_get('dibs_settings_extended', array());
+  if (!empty($default['suffixhtml'])){
+    $output .= '<div>' . $default['suffixhtml'] . '</div>';
+  }
   return $output;
+}
+
+/**
+ * Implementation of hook_form_FORM_ID_alter().
+ */
+function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
+
+  $default = variable_get('dibs_settings_extended', array());
+
+  // add weight so our fieldset are placed correctly
+  $weight = -10;
+  foreach ($form as $key => $value ) {
+    if ( $value['#type'] != 'fieldset' ){
+      break;
+    }
+    $form[$key]['#weight'] = $weight++;     
+  }
+  
+  $form['extended'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Extended settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+    '#weight' => $weight,
+  );
+  $form['extended']['suffixhtml'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Suffix html'),
+    '#default_value' => $default['suffixhtml'],
+    '#description' => t(''),
+  );
+  
+  $form['#submit'][] = 'ding_debt_dibs_admin_settings_form_submit';
+}
+
+function ding_debt_dibs_admin_settings_form_submit($form, &$form_state) {
+  variable_set('dibs_settings_extended', $form_state['values']['extended']);
 }
