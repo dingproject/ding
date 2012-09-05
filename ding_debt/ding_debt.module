@@ -167,9 +167,9 @@ function theme_ding_debt_list_form($form) {
   $output = theme('table', $header, $rows, array('colgroups' => $colgroups));
   $output .= drupal_render($form);
   
-  $default = variable_get('dibs_settings_extended', array());
-  if (!empty($default['suffixhtml'])){
-    $output .= '<div>' . $default['suffixhtml'] . '</div>';
+  $default = variable_get('dibs_settings_extended', FALSE);
+  if (isset($default['description']) && !empty($default['description'])){
+    $output .= '<div>' . $default['description'] . '</div>';
   }
   return $output;
 }
@@ -179,8 +179,6 @@ function theme_ding_debt_list_form($form) {
  */
 function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
 
-  $default = variable_get('dibs_settings_extended', array());
-
   // add weight so our fieldset are placed correctly
   $weight = -10;
   foreach ($form as $key => $value ) {
@@ -189,7 +187,9 @@ function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
     }
     $form[$key]['#weight'] = $weight++;     
   }
-  
+
+  $default = variable_get('dibs_settings_extended', array());
+
   $form['extended'] = array(
     '#type' => 'fieldset',
     '#title' => t('Extended settings'),
@@ -198,11 +198,11 @@ function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
     '#tree' => TRUE,
     '#weight' => $weight,
   );
-  $form['extended']['suffixhtml'] = array(
+  $form['extended']['description'] = array(
     '#type' => 'textarea',
-    '#title' => t('Suffix html'),
-    '#default_value' => $default['suffixhtml'],
-    '#description' => t(''),
+    '#title' => t('Description'),
+    '#default_value' => $default['description'],
+    '#description' => t('Text to show on page with users-debts - required by the payment provider'),
   );
   
   $form['#submit'][] = 'ding_debt_dibs_admin_settings_form_submit';
