@@ -169,7 +169,7 @@ function theme_ding_debt_list_form($form) {
   
   $default = variable_get('dibs_settings_extended', NULL);
   if (isset($default['description']) && !empty($default['description'])){
-    $output .= '<div>' . $default['description'] . '</div>';
+    $output .= '<div class="ding-debt-description">' . $default['description'] . '</div>';
   }
   return $output;
 }
