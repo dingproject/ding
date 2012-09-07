@@ -167,7 +167,7 @@ function theme_ding_debt_list_form($form) {
   $output = theme('table', $header, $rows, array('colgroups' => $colgroups));
   $output .= drupal_render($form);
   
-  $default = variable_get('dibs_settings_extended', FALSE);
+  $default = variable_get('dibs_settings_extended', NULL);
   if (isset($default['description']) && !empty($default['description'])){
     $output .= '<div>' . $default['description'] . '</div>';
   }
@@ -188,7 +188,7 @@ function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
     $form[$key]['#weight'] = $weight++;     
   }
 
-  $default = variable_get('dibs_settings_extended', array());
+  $default = variable_get('dibs_settings_extended', NULL);
 
   $form['extended'] = array(
     '#type' => 'fieldset',
@@ -201,7 +201,7 @@ function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
   $form['extended']['description'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#default_value' => $default['description'],
+    '#default_value' => (isset($default['description'])) ? $default['description'] : NULL,
     '#description' => t('Text to show on page with users-debts - required by the payment provider'),
   );
   
