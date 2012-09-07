@@ -201,7 +201,7 @@ function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
   $form['extended']['description'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#default_value' => (isset($default['description'])) ? $default['description'] : NULL,
+    '#default_value' => (isset($default['description'])) ? $default['description'] : '',
     '#description' => t('Text to show on page with users-debts - required by the payment provider'),
   );
   
