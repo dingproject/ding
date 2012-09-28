@@ -123,3 +123,14 @@ function ding_dibs_payment_prepare($amount, $params, $callback) {
 
   dibs_payment_prepare($params);
 }
+
+/**
+ * Implementation of hook_cron().
+ * Cleanup old transactions from the database
+ */
+function ding_dibs_cron() {
+  $res = db_query('DELETE FROM {dibs_transactions} WHERE DATEDIFF(sysdate(), payment_time) > 60 LIMIT 250');
+  if(!$res){
+    watchdog('ding_dibs', t('There where an error in deleting DIBS payment transactions @res.', array('@res' => check_plain($res))));
+  }
+}
