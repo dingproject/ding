@@ -197,9 +197,10 @@ function template_preprocess_ding_panels_library_user_staff_title(&$variables) {
  * Utitlity function for caching remote images locally for 24 hours.
  *
  * @param $path the path to the image
+ * @param $image_type the filetype of the saved image 
  * @return string the local path for the image
  */
-function _ding_panels_get_image($path) {
+function _ding_panels_get_image($path, $image_type = '.png') {
   $return = $path;
 
   $base_path = file_directory_path().'/ding_panels';
@@ -208,9 +209,9 @@ function _ding_panels_get_image($path) {
   $cut_path = str_ireplace("http://", "", $path);
   $image_name  = preg_replace("/[^\w]/", "-", $path);
 
-  $image_path = $base_path."/".$image_name;
+  $image_path = $base_path . "/" . $image_name . $image_type;
   if (file_exists($image_path) &&
-    time() < (filectime($imagepath) + (60*60*24))) {
+    time() < (filectime($image_path) + (60*60*24))) {
     // File already downloaded and within 24 hours cache lifetime
     $return = $image_path;
   } else {
