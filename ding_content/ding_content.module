@@ -1,8 +1,7 @@
 <?php
-
 /**
- * @file ding_content.module
- * Provides the profile node type for the Ding! project.
+ * @file
+ * Provides miscellaneous node types for the Ding! project.
  */
 
 /**
@@ -91,9 +90,6 @@ function ding_content_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     else {
       $node->uid = 0;
     }
-  }
-  if ($op == 'view' && $node->type == 'profile' && $_GET['q'] == 'node/' . $node->nid) {
-    return drupal_goto('user/' . $node->uid, NULL, NULL, 301);
   }
 }
 

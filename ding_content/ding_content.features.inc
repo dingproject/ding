@@ -107,17 +107,6 @@ function ding_content_node_info() {
       'min_word_count' => '0',
       'help' => '',
     ),
-    'profile' => array(
-      'name' => t('Staff profile'),
-      'module' => 'features',
-      'description' => t('A staff profile with description, profile picture, and tags.'),
-      'has_title' => '1',
-      'title_label' => t('Name'),
-      'has_body' => '1',
-      'body_label' => t('Description'),
-      'min_word_count' => '0',
-      'help' => '',
-    ),
     'topic' => array(
       'name' => t('Topic'),
       'module' => 'features',
