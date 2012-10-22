@@ -1514,6 +1514,7 @@ user/*
 users/*
 admin*
 profil/*
+payment/dibs/*
 medarbejdere/*';
   $export['securepages_pages'] = $strongarm;
 
