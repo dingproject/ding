@@ -166,5 +166,48 @@ function theme_ding_debt_list_form($form) {
 
   $output = theme('table', $header, $rows, array('colgroups' => $colgroups));
   $output .= drupal_render($form);
+  
+  $default = variable_get('dibs_settings_extended', NULL);
+  if (isset($default['description']) && !empty($default['description'])){
+    $output .= '<div class="ding-debt-description">' . $default['description'] . '</div>';
+  }
   return $output;
+}
+
+/**
+ * Implementation of hook_form_FORM_ID_alter().
+ */
+function ding_debt_form_dibs_admin_settings_form_alter(&$form, $form_state) {
+
+  // add weight so our fieldset are placed correctly
+  $weight = -10;
+  foreach ($form as $key => $value ) {
+    if ( $value['#type'] != 'fieldset' ){
+      break;
+    }
+    $form[$key]['#weight'] = $weight++;     
+  }
+
+  $default = variable_get('dibs_settings_extended', NULL);
+
+  $form['extended'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Extended settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+    '#weight' => $weight,
+  );
+  $form['extended']['description'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#default_value' => (isset($default['description'])) ? $default['description'] : '',
+    '#description' => t('Text to show on page with users-debts - required by the payment provider'),
+  );
+  
+  $form['#submit'][] = 'ding_debt_dibs_admin_settings_form_submit';
+}
+
+function ding_debt_dibs_admin_settings_form_submit($form, &$form_state) {
+  variable_set('dibs_settings_extended', $form_state['values']['extended']);
 }
