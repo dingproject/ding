@@ -53,6 +53,12 @@ function ding_panels_ctools_plugin_api($module, $api) {
   if ($module == 'panels' && $api == 'styles') {
     return array('version' => 2);
   }
+  elseif ($module == "page_manager" && $api == "pages_default") {
+    return array("version" => 1);
+  }
+  elseif ($module == "strongarm" && $api == "strongarm") {
+    return array("version" => 1);
+  }
 }
 
 /**

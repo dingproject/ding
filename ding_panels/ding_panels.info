@@ -1,6 +1,8 @@
-name = Ding! Panels
-description = Provides Panels plug-ins. Content types, layouts, etc.
-package = Ding!
-core = 6.x
-dependencies[] = panels
-
+name = "Ding! Panels"
+description = "Provides Panels plug-ins. Content types, layouts, etc."
+core = "6.x"
+package = "Ding!"
+dependencies[] = "panels"
+dependencies[] = "strongarm"
+features[ctools][] = "strongarm:strongarm:1"
+features[variable][] = "site_403"

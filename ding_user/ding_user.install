@@ -85,3 +85,33 @@ function ding_user_update_6002() {
   return $ret;
 }
 
+/**
+ * Remove path alias from alma users.
+ */
+function ding_user_update_6003() {
+  $ret = array();
+
+  $user_count = (integer) db_result(db_query("SELECT COUNT(uid) FROM {users} AS u WHERE u.name LIKE '%@alma_user'"));
+
+  $uid_query = db_query("SELECT uid FROM {users} AS u WHERE u.name LIKE '%@alma_user'");
+
+  // Make buckets of 50 uids, so we don't have to make a query for each user.
+  $bucket_count = ceil($user_count / 50);
+  $uids = array();
+  while ($uid = (integer) db_result($uid_query)) {
+    $uids[$uid % $bucket_count][] = $uid;
+  }
+  
+  // Remove aliases for each bucket.
+  foreach ($uids as $bucket) {
+    $filter = array();
+
+    foreach ($bucket as $uid) {
+      $filter[] = 'user/' . $uid; 
+    }
+
+    $ret[] = update_sql("DELETE FROM {url_alias} WHERE src IN ('" . implode("','", $filter) . "')");
+  }
+
+  return $ret;
+}

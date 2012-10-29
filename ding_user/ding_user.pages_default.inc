@@ -12,11 +12,11 @@ function ding_user_default_page_manager_handlers() {
   $handler = new stdClass;
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
-  $handler->name = 'user_view_panel_context_2';
+  $handler->name = 'user_view_panel_context_staff';
   $handler->task = 'user_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = -10;
+  $handler->weight = -8;
   $handler->conf = array(
     'autogenerate_title' => TRUE,
     'title' => 'Staff user profile',
@@ -26,7 +26,7 @@ function ding_user_default_page_manager_handlers() {
     'css_cache_file' => '',
     'contexts' => array(),
     'relationships' => array(
-      '0' => array(
+      0 => array(
         'context' => 'argument_uid_1',
         'name' => 'node_from_user',
         'id' => 1,
@@ -39,21 +39,21 @@ function ding_user_default_page_manager_handlers() {
     ),
     'access' => array(
       'plugins' => array(
-        '0' => array(
+        0 => array(
           'name' => 'perm',
           'settings' => array(
             'perm' => 'access user profiles',
           ),
           'context' => 'logged-in-user',
         ),
-        '1' => array(
+        1 => array(
           'name' => 'role',
           'settings' => array(
             'rids' => array(
-              '0' => 3,
-              '1' => 4,
-              '2' => 5,
-              '3' => 6,
+              0 => 3,
+              1 => 4,
+              2 => 5,
+              3 => 6,
             ),
           ),
           'context' => 'argument_uid_1',
@@ -67,9 +67,7 @@ function ding_user_default_page_manager_handlers() {
   $display->layout_settings = array();
   $display->panel_settings = array();
   $display->cache = array();
-  $display->title = '';
-  $display->hide_title = FALSE;
-  $display->title_pane = 15;
+  $display->title = '%user:ding_user_display_name';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -81,7 +79,7 @@ function ding_user_default_page_manager_handlers() {
     $pane->access = array();
     $pane->configuration = array(
       'context' => array(
-        '0' => 'argument_uid_1',
+        0 => 'argument_uid_1',
       ),
     );
     $pane->cache = array();
@@ -103,7 +101,7 @@ function ding_user_default_page_manager_handlers() {
       'pager_id' => '',
       'items_per_page' => '10',
       'context' => array(
-        '0' => 'argument_uid_1',
+        0 => 'argument_uid_1',
       ),
     );
     $pane->cache = array();
@@ -124,8 +122,8 @@ function ding_user_default_page_manager_handlers() {
     $pane->access = array();
     $pane->configuration = array(
       'context' => array(
-        '0' => 'relationship_node_from_user_1',
-        '1' => 'empty',
+        0 => 'relationship_node_from_user_1',
+        1 => 'empty',
       ),
       'override_title' => 0,
       'override_title_text' => '',
@@ -163,17 +161,19 @@ function ding_user_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-4'] = $pane;
     $display->panels['top'][0] = 'new-4';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
-  $handlers['user_view_panel_context_2'] = $handler;
+  $handlers['user_view_panel_context_staff'] = $handler;
 
   $handler = new stdClass;
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
-  $handler->name = 'user_view_panel_context_3';
+  $handler->name = 'user_view_panel_context_personal';
   $handler->task = 'user_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = -9;
+  $handler->weight = -4;
   $handler->conf = array(
     'title' => 'Personal profile',
     'no_blocks' => FALSE,
@@ -219,7 +219,7 @@ function ding_user_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%user:ding_user_display_name';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -311,19 +311,19 @@ function ding_user_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-4'] = $pane;
     $display->panels['right'][0] = 'new-4';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
-  $handlers['user_view_panel_context_3'] = $handler;
+  $handlers['user_view_panel_context_personal'] = $handler;
 
   $handler = new stdClass;
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
-  $handler->name = 'user_view_panel_context';
+  $handler->name = 'user_view_panel_context_normal';
   $handler->task = 'user_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = -8;
+  $handler->weight = 0;
   $handler->conf = array(
     'autogenerate_title' => TRUE,
     'title' => 'Normal user profile',
@@ -335,12 +335,13 @@ function ding_user_default_page_manager_handlers() {
     'relationships' => array(),
     'access' => array(
       'plugins' => array(
-        '0' => array(
+        0 => array(
           'name' => 'perm',
           'settings' => array(
-            'perm' => 'access user profiles',
+            'perm' => 'administer users',
           ),
           'context' => 'logged-in-user',
+          'not' => FALSE,
         ),
       ),
       'logic' => 'and',
@@ -351,9 +352,7 @@ function ding_user_default_page_manager_handlers() {
   $display->layout_settings = array();
   $display->panel_settings = array();
   $display->cache = array();
-  $display->title = '';
-  $display->hide_title = TRUE;
-  $display->title_pane = 101;
+  $display->title = '%user:ding_user_display_name';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -368,7 +367,7 @@ function ding_user_default_page_manager_handlers() {
       'pager_id' => '',
       'items_per_page' => '10',
       'context' => array(
-        '0' => 'argument_uid_1',
+        0 => 'argument_uid_1',
       ),
     );
     $pane->cache = array();
@@ -389,8 +388,8 @@ function ding_user_default_page_manager_handlers() {
     $pane->access = array();
     $pane->configuration = array(
       'context' => array(
-        '0' => 'empty',
-        '1' => 'empty',
+        0 => 'empty',
+        1 => 'empty',
       ),
       'override_title' => 0,
       'override_title_text' => '',
@@ -421,8 +420,27 @@ function ding_user_default_page_manager_handlers() {
     $pane->position = 0;
     $display->content['new-3'] = $pane;
     $display->panels['top'][0] = 'new-3';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
-  $handlers['user_view_panel_context'] = $handler;
+  $handlers['user_view_panel_context_normal'] = $handler;
+
+  $handler = new stdClass;
+  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+  $handler->api_version = 1;
+  $handler->name = 'user_view_access_denied';
+  $handler->task = 'user_view';
+  $handler->subtask = '';
+  $handler->handler = 'http_response';
+  $handler->weight = 8;
+  $handler->conf = array(
+    'title' => 'Access denied',
+    'contexts' => array(),
+    'relationships' => array(),
+    'code' => '403',
+    'destination' => '',
+  );
+  $handlers['user_view_access_denied'] = $handler;
 
   return $handlers;
 }
