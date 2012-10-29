@@ -50,7 +50,7 @@ function ding_content_form_alter(&$form, $form_state, $form_id) {
             '#type' => 'fieldset',
             '#title' => t('Revision information'),
             '#collapsible' => TRUE,
-            // Collapsed by default when "Create new revision" is unchecked
+            // Collapsed by default when "Create new revision" is unchecked.
             '#collapsed' => !$node->revision,
             '#weight' => 20,
           );
@@ -93,5 +93,18 @@ function ding_content_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   }
 }
 
-require_once('ding_content.features.inc');
+/**
+ * Implements hook_panels_pane_content_alter().
+ */
+function ding_content_panels_pane_content_alter(&$content, $pane, $args, $context) {
+  // Hide the node comments pane when comments are disabled for a node.
+  if ($pane->type == 'comment_login' || $pane->type == 'node_comments') {
+    $node = menu_get_object();
+    if ($node && $node->comment == COMMENT_NODE_DISABLED) {
+      // Overwrite content with an empty object.
+      $content = new stdClass();
+    }
+  }
+}
 
+require_once 'ding_content.features.inc';
