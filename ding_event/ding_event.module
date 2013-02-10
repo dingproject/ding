@@ -33,6 +33,10 @@ function ding_event_cron() {
   // time, since the cache will be refilled only by the cron job.
   if (date('Ymd', $timestamp) != date('Ymd', $_SERVER['REQUEST_TIME']) &&
       lock_acquire('ding_event_similar_data_generated', 600.0)) {
+
+    // Before we generate the similar events data, archive any old events.
+    ding_event_archive_past_events();
+
     ding_event_similar_data(TRUE);
     lock_release('ding_event_similar_data_generated');
   }
@@ -84,6 +88,47 @@ function ding_event_views_pre_render(&$view) {
 function ding_event_ctools_plugin_directory($module, $plugin) {
   if ($module == 'ctools') {
     return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Archive old events, if this setting is enabled.
+ */
+function ding_event_archive_past_events() {
+  // Do nothing if archiving is not enabled.
+  if (!variable_get('ding_event_archive_past_events', FALSE)) {
+    return;
+  }
+
+  // CCK field name for the date/time field on event nodes.
+  $fieldname = 'field_datetime';
+
+  $field = content_fields('field_datetime', 'event');
+  $dbinfo = content_database_info($field);
+  $colname = $dbinfo['columns']['value2']['column'];
+
+  $query = db_query('
+    SELECT n.nid FROM {node} AS n
+    INNER JOIN ' . $dbinfo['table'] . ' AS cte ON (n.vid = cte.vid)
+    WHERE ' . $colname . ' IS NOT NULL
+    AND ' . $colname . ' < date_sub(CURRENT_TIMESTAMP, INTERVAL 2 DAYS)
+    AND n.status = 1
+  ');
+
+  $nids = array();
+  while ($nid = db_result($query)) {
+    $nids[] = $nid;
+  }
+
+  if (count($nids) < 1) {
+    watchdog('ding_event', 'There are no outdated events that need to be archived.');
+  }
+  else {
+    watchdog('ding_event', 'Found @num outdated events that will be archived.', array(
+      '@num' => count($nids),
+    ));
+
+    db_query('UPDATE {node} SET status = 0 WHERE nid IN (' .  implode(',', $nids) . ')');
   }
 }
 
