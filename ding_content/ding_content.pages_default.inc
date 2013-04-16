@@ -308,7 +308,10 @@ function ding_content_default_page_manager_handlers() {
     $pane->access = array();
     $pane->configuration = array(
       'display_header_image' => FALSE,
-      'context' => 'relationship_node_from_noderef_1',
+      'context' => array(
+        0 => 'relationship_node_from_noderef_1',
+        1 => 'argument_nid_1',
+      ),
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -547,7 +550,10 @@ function ding_content_default_page_manager_handlers() {
     $pane->access = array();
     $pane->configuration = array(
       'display_header_image' => FALSE,
-      'context' => 'relationship_node_from_noderef_1',
+      'context' => array(
+        0 => 'relationship_node_from_noderef_1',
+        1 => 'argument_nid_1',
+      ),
       'override_title' => 0,
       'override_title_text' => '',
     );
