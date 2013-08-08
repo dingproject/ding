@@ -15,7 +15,7 @@ function ding_library_map_openlayers_presets() {
   $openlayers_presets->data = array(
     'width' => 'auto',
     'height' => '200px',
-    'image_path' => 'http://js.mapbox.com/theme/dark/',
+    'image_path' => 'https://dr0duaxde13i9.cloudfront.net/theme/dark/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
